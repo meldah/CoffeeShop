@@ -1,10 +1,24 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class MainPanel extends JFrame
 {
@@ -16,17 +30,19 @@ public class MainPanel extends JFrame
 	private PastryPanel pastryPanel;
 	private ListPanel list;
 	private ButtonPanel buttons;
+	private ClearPanel clearBtn;
 	private CountPanel countPanel;
 	//Price of the entire order.
 	private Double totalPrice = 0.0;
-
+	private int countOrd = 1;
+	JPanel p1 = new JPanel();
 	public MainPanel()
 	{
 		setResizable(true);
 		//Sets up the panel.
 		setTitle("Coffee Shop");
-		getContentPane().setLayout(new BorderLayout());
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//getContentPane().setLayout(new BorderLayout());
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Creates all of the sub-panels.
 		greeting = new GreetingPanel();
@@ -38,22 +54,78 @@ public class MainPanel extends JFrame
 		list = new ListPanel();
 		countPanel = new CountPanel();
 		buttons = new ButtonPanel();
-		buttons.addItemButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		clearBtn = new ClearPanel();
+		buttons.addItemButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
 			}
 		});
-		buttons.totalButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		buttons.totalButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
 			}
 		});
+		buttons.receipt.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+			}
+		});
+		clearBtn.clearItemButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				
+			}
+		});
+		countPanel.count.addChangeListener(new ChangeListener() 
+		{
+			
+			@Override
+			public void stateChanged(ChangeEvent e) 
+			{
 
+				countOrd = (Integer) CountPanel.count.getValue();
+				
+			}
+		});
+		
+		Container cont = getContentPane();
+        p1.setLayout(new BorderLayout());
+        p1.add(greeting, BorderLayout.NORTH);
+		p1.add(products, BorderLayout.WEST);
+		p1.add(coffeePanel, BorderLayout.CENTER);
+		p1.add(cappuccinoPanel, BorderLayout.CENTER);
+		p1.add(list, BorderLayout.EAST);
+		
+	    p1.setPreferredSize( new Dimension(1000, 900));
+	    
+		JPanel p2 = new JPanel();
+        p2.setLayout(new GridLayout());
+        p2.add(countPanel);
+        
+        JPanel p3 = new JPanel();
+        p3.setLayout(new GridLayout(1,1));
+        p3.add(buttons);
+        
+        JPanel p4 = new JPanel();
+        p4.setLayout(new GridLayout(1,1));
+        p4.add(clearBtn);
+
+        cont.setLayout(new BorderLayout());
+        cont.add(p1, BorderLayout.NORTH);
+        cont.add(p2, BorderLayout.CENTER);
+        cont.add(p3, BorderLayout.SOUTH);
+        cont.add(p4, BorderLayout.EAST);
 		//Adds the subpanels to the main panel.
-		getContentPane().add(greeting, BorderLayout.NORTH);
-		getContentPane().add(products, BorderLayout.WEST);
-		getContentPane().add(coffeePanel, BorderLayout.CENTER);
-		getContentPane().add(cappuccinoPanel, BorderLayout.CENTER);
-		getContentPane().add(list, BorderLayout.EAST);
-		getContentPane().add(buttons, BorderLayout.SOUTH);
+		//getContentPane().add(greeting, BorderLayout.NORTH);
+		//getContentPane().add(products, BorderLayout.WEST);
+		//getContentPane().add(coffeePanel, BorderLayout.CENTER);
+		//getContentPane().add(cappuccinoPanel, BorderLayout.CENTER);
+		//getContentPane().add(list, BorderLayout.EAST);
+		//getContentPane().add(buttons, BorderLayout.SOUTH);
 		
 		pack();
 		setVisible(true);
@@ -67,18 +139,23 @@ public class MainPanel extends JFrame
 		ButtonPanel.addItemButton.addActionListener(new AddButtonListener());
 		ButtonPanel.totalButton.addActionListener(new TotalButtonListener());
 		ButtonPanel.newOrderButton.addActionListener(new NewOrderButtonListener());
+		ButtonPanel.receipt.addActionListener(new GetTheReceipt());
+		
+		ClearPanel.clearItemButton.addActionListener(new ClearItem());
 	}
+	
 	
 	/**
 	 * Removes everything from the center panel.
 	 */
+	
 	public void removeCenterPanel()
 	{
-		remove(coffeePanel);
-		remove(cappuccinoPanel);
-		remove(sandwichesPanel);
-		remove(pastryPanel);
-		remove(countPanel);
+		p1.remove(coffeePanel);
+		p1.remove(cappuccinoPanel);
+		p1.remove(sandwichesPanel);
+		p1.remove(pastryPanel);
+		p1.remove(countPanel);
 	}
 	
 	/**
@@ -86,7 +163,7 @@ public class MainPanel extends JFrame
 	 */
 	public void addCoffeePanel()
 	{
-		getContentPane().add(coffeePanel, BorderLayout.CENTER);
+		p1.add(coffeePanel, BorderLayout.CENTER);
 		validate();
 		repaint();
 	}
@@ -95,7 +172,7 @@ public class MainPanel extends JFrame
 	 */
 	public void addCappuccinoPanel()
 	{
-		getContentPane().add(cappuccinoPanel, BorderLayout.CENTER);
+		p1.add(cappuccinoPanel, BorderLayout.CENTER);
 		validate();
 		repaint();
 	}
@@ -105,7 +182,7 @@ public class MainPanel extends JFrame
 	 */
 	public void addBagelPanel()
 	{
-		getContentPane().add(sandwichesPanel, BorderLayout.CENTER);
+		p1.add(sandwichesPanel, BorderLayout.CENTER);
 		validate();
 		repaint();
 	}
@@ -115,7 +192,7 @@ public class MainPanel extends JFrame
 	 */
 	public void addPastryPanel()
 	{
-		getContentPane().add(pastryPanel, BorderLayout.CENTER);
+		p1.add(pastryPanel, BorderLayout.CENTER);
 		validate();
 		repaint();
 	}
@@ -183,12 +260,12 @@ public class MainPanel extends JFrame
 			{
 				String order = coffeePanel.getCoffeeTotalType();
 				Double cost = coffeePanel.getCoffeeTotalCost();
-
-				//System.out.println(order + " : " + cost);
-				
+				if(countOrd > 1)
+				{
+					cost = countOrd * cost;
+				}
 				//Makes the final string to output.
-				String totalOrder = order + " :" + (formatter.format(cost)).toString() + " лв.";
-
+				String totalOrder = countOrd + "X" + order + " :" + (formatter.format(cost)).toString() + " лв.";
 				totalPrice += cost;
 				if(cost!=0.00 && order!="")
 				{
@@ -196,6 +273,8 @@ public class MainPanel extends JFrame
 					//
 					list.invalidate();
 					list.repaint();
+					//
+					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
 				}
 				else
 				{
@@ -207,8 +286,11 @@ public class MainPanel extends JFrame
 			{
 				String order = cappuccinoPanel.getCappuccinoTotalType();
 				Double cost = cappuccinoPanel.getCappuccinoTotalCost();
-				
-				String totalOrder = order + " :" + (formatter.format(cost)).toString() + " лв.";
+				if(countOrd > 1)
+				{
+					cost = countOrd * cost;
+				}
+				String totalOrder =countOrd + "X" + order + " :" + (formatter.format(cost)).toString() + " лв.";
 				totalPrice += cost;
 				if(cost!=0.00 && order!="")
 				{
@@ -216,6 +298,8 @@ public class MainPanel extends JFrame
 					//
 					list.invalidate();
 					list.repaint();
+					//
+					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
 				}
 				else
 				{
@@ -226,12 +310,14 @@ public class MainPanel extends JFrame
 			{
 				String order = sandwichesPanel.getSandwichTotalType();
 				Double cost = sandwichesPanel.getSandwichTotalCost();
-
-				//System.out.println(order + " : " + cost);
+				if(countOrd > 1)
+				{
+					cost = countOrd * cost;
+				}
 				
 				//Makes the final string to output.
-				String totalOrder = order + " :" + (formatter.format(cost)).toString() + " лв.";
-
+				String totalOrder =countOrd + "X" + order + " :" + (formatter.format(cost)).toString() + " лв.";
+				
 				totalPrice += cost;
 				if(cost!=0 && order!="")
 				{
@@ -239,6 +325,8 @@ public class MainPanel extends JFrame
 					//
 					list.invalidate();
 					list.repaint();
+					//
+					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
 				}
 				else
 				{
@@ -250,11 +338,12 @@ public class MainPanel extends JFrame
 			{
 				String order = pastryPanel.getPastryType();
 				Double cost = pastryPanel.getPastryCost();
-
-				//System.out.println(order + " : " + cost);
-				
+				if(countOrd > 1)
+				{
+					cost = countOrd * cost;
+				}		
 				//Makes the final string to output.
-				String totalOrder = order + " :" + (formatter.format(cost)).toString() + " лв.";
+				String totalOrder =countOrd + "X" + order + " :" + (formatter.format(cost)).toString() + " лв.";
 
 				totalPrice += cost;
 				if(cost!=0.00 && order!="")
@@ -263,6 +352,8 @@ public class MainPanel extends JFrame
 					//
 					list.invalidate();
 					list.repaint();
+					//
+					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
 				}
 				else
 				{
@@ -301,6 +392,8 @@ public class MainPanel extends JFrame
 			
 		}
 	}
+	
+	    
 	public void NewOrder()
 	{
 		list.listInfo.clear();
@@ -337,6 +430,108 @@ public class MainPanel extends JFrame
 		sandwichesPanel.products.iceberg.setSelected(false);
 		
 		totalPrice=0.0;
+		countOrd=1;
+	}
+	
+	private class GetTheReceipt implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+			try {
+				NewReceipt();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+	}
+	
+	public void NewReceipt() throws IOException
+	{
+		String pattern = "MM-dd-yyyy HH:mm:ss";
+		pattern = pattern.replaceAll("\\s","");
+		pattern = pattern.replaceAll("-", "");
+		pattern = pattern.replaceAll(":", "");
+		DateFormat df = new SimpleDateFormat(pattern);
+		Date today = Calendar.getInstance().getTime();        
+		String todayAsString = df.format(today);
+		String fileName = "fish"+ todayAsString + ".txt";
+		//make directory
+		String dir = System.getProperty("user.dir") + "\\Receips\\";
+		dir += fileName;
+		File file = new File(dir);
+		/*
+		if(!file.exists()) 
+		{
+			try 
+			{
+				new File(dir).mkdir();
+			} 
+			catch(SecurityException se) 
+			{
+				se.printStackTrace();
+			}	
+		} 
+		else
+		{ 
+			
+			dir += fileName;
+			File recFile = new File(fileName);
+			if(!recFile.exists()) 
+			{
+				try 
+				{
+					new File(dir).createNewFile();
+				} 
+				catch(IOException ioe) 
+				{
+					ioe.printStackTrace();
+				}
+			} 
+		*/	
+			PrintWriter printWriter = new PrintWriter(file);
+						
+			for(int i = 0; i < list.listInfo.size(); i++ )
+			{
+				String line = list.listInfo.get(i);
+				printWriter.println (line);
+				JOptionPane.showMessageDialog(null, "Файлът " + fileName + " не може да бъде намерен!", "Грешка", JOptionPane.ERROR_MESSAGE);
+					
+			}
+			if(printWriter != null) 
+			{
+				printWriter.close();
+			}
+		//}
+	}
+	private class ClearItem implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			int clrInd = list.orders.getSelectedIndex();
+			if(clrInd == -1)
+			{
+				JOptionPane.showMessageDialog(null, "Изберете продукт за премахване от списъка!", "Грешка", JOptionPane.ERROR_MESSAGE);
+			}
+			//remove deleted item's price from the total price
+			String line = list.listInfo.get(clrInd);
+			int first = line.lastIndexOf(":");
+			int last = line.indexOf(' ', first);
+			String costStr = line.substring(first+1, last);
+			double result = Double.parseDouble(costStr.replaceAll(",", "."));
+			totalPrice -= result;
+			//
+			list.listInfo.remove(clrInd);
+			list.orders.setListData(list.listInfo);
+			//
+			list.invalidate();
+			list.repaint();
+			//
+			
+		}
+		
 	}
 	/**
 	 * Main method for starting the program.

@@ -1,19 +1,12 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
-/**
- * Main panel to hold the buttons.
- * @author DrewOsborne
- *
- */
 public class ButtonPanel extends JPanel
 {
 	public static JButton addItemButton;
 	public static JButton totalButton;
 	public static JButton newOrderButton;
+	public static JButton receipt;
 	public ListPanel list;
 	
 	/**
@@ -21,14 +14,17 @@ public class ButtonPanel extends JPanel
 	 */
 	public ButtonPanel()
 	{
-		setLayout(new GridLayout(1,3));
+		setLayout(new GridLayout(1,4));
 		
 		addItemButton = new JButton("Добави продукт");
 		totalButton = new JButton("Общо");
-		newOrderButton = new JButton("Нова поръчка");
+		newOrderButton = new JButton("Нова поръчка");		
+		receipt = new JButton("Касова бележка");
+		
 		
 		add(addItemButton);
 		add(totalButton);
+		add(receipt);
 		add(newOrderButton);
 	}
 }

@@ -1,11 +1,4 @@
-import java.awt.*;
 import javax.swing.*;
-
-/**
- * List of pastries to add to the Pastry Panel.
- * @author DrewOsborne
- *
- */
 public class pastryTypesPanel extends JPanel
 {
 	private JList pastryList;
