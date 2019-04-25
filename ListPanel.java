@@ -10,7 +10,7 @@ public class ListPanel extends JPanel
 {
 	public JScrollPane scrollPanel;
 	public JList<String> orders;
-	public Vector listInfo;
+	public Vector<String> listInfo;
 	
 	/**
 	 * Constructor
@@ -18,11 +18,11 @@ public class ListPanel extends JPanel
 	public ListPanel()
 	{
 		//Vector to hold the items to add.
-		listInfo = new Vector();
+		listInfo = new Vector<String>();
 		
 		//Creates the list.
-		orders = new JList(listInfo);
-		orders.setVisibleRowCount(30);
+		orders = new JList<String>(listInfo);
+		orders.setVisibleRowCount(50);
 		scrollPanel = new JScrollPane(orders);
 		add(scrollPanel);
 	}

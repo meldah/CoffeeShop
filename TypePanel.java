@@ -12,6 +12,8 @@ public class TypePanel extends JPanel
 	private JRadioButton cCoffee;
 	private JRadioButton bioCoffee;
 	public ButtonGroup typeGroup;
+	//
+	boolean isSelected=false;
 	
 	/**
 	 * Constructor
@@ -49,14 +51,29 @@ public class TypePanel extends JPanel
 		String type = "";
 		
 		if (lCoffee.isSelected())
+		{
 			type = "лаваца";
+			isSelected = true;
+		}
 		else if (bCoffee.isSelected())
+		{
 			type = "бианчи";
+			isSelected = true;
+		}
 		else if (cCoffee.isSelected())
+		{
 			type = "безкофеиново";
+			isSelected = true;
+		}
 		else if (bioCoffee.isSelected())
+		{
 			type = "био";
-		
+			isSelected = true;
+		}
+		else 
+		{
+			JOptionPane.showMessageDialog(null, "Моля изберете тип на продукта!");
+		}
 		return type;	
 	}
 }

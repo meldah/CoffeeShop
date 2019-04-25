@@ -1,14 +1,9 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -119,14 +114,7 @@ public class MainPanel extends JFrame
         cont.add(p2, BorderLayout.CENTER);
         cont.add(p3, BorderLayout.SOUTH);
         cont.add(p4, BorderLayout.EAST);
-		//Adds the subpanels to the main panel.
-		//getContentPane().add(greeting, BorderLayout.NORTH);
-		//getContentPane().add(products, BorderLayout.WEST);
-		//getContentPane().add(coffeePanel, BorderLayout.CENTER);
-		//getContentPane().add(cappuccinoPanel, BorderLayout.CENTER);
-		//getContentPane().add(list, BorderLayout.EAST);
-		//getContentPane().add(buttons, BorderLayout.SOUTH);
-		
+        
 		pack();
 		setVisible(true);
 		
@@ -460,51 +448,42 @@ public class MainPanel extends JFrame
 		String fileName = "fish"+ todayAsString + ".txt";
 		//make directory
 		String dir = System.getProperty("user.dir") + "\\Receips\\";
+		try 
+		{
+			new File(dir).mkdir();
+		} 
+		catch(SecurityException se) 
+		{
+			se.printStackTrace();
+		}	
 		dir += fileName;
-		File file = new File(dir);
-		/*
-		if(!file.exists()) 
+		File file = new File(dir);			
+			
+		File recFile = new File(dir);
+		if(!recFile.exists()) 
 		{
 			try 
 			{
-				new File(dir).mkdir();
+				new File(dir).createNewFile();
 			} 
-			catch(SecurityException se) 
+			catch(IOException ioe) 
 			{
-				se.printStackTrace();
-			}	
+				ioe.printStackTrace();
+			}
 		} 
-		else
-		{ 
 			
-			dir += fileName;
-			File recFile = new File(fileName);
-			if(!recFile.exists()) 
-			{
-				try 
-				{
-					new File(dir).createNewFile();
-				} 
-				catch(IOException ioe) 
-				{
-					ioe.printStackTrace();
-				}
-			} 
-		*/	
-			PrintWriter printWriter = new PrintWriter(file);
+		PrintWriter printWriter = new PrintWriter(file);
 						
-			for(int i = 0; i < list.listInfo.size(); i++ )
-			{
-				String line = list.listInfo.get(i);
-				printWriter.println (line);
-				JOptionPane.showMessageDialog(null, "Файлът " + fileName + " не може да бъде намерен!", "Грешка", JOptionPane.ERROR_MESSAGE);
-					
-			}
-			if(printWriter != null) 
-			{
-				printWriter.close();
-			}
-		//}
+		for(int i = 0; i < list.listInfo.size(); i++ )
+		{
+			String line = list.listInfo.get(i);
+			printWriter.println (line);				
+		}
+		printWriter.println("Обща сума: " + totalPrice.toString());
+		if(printWriter != null) 
+		{
+			printWriter.close();
+		}		
 	}
 	private class ClearItem implements ActionListener
 	{

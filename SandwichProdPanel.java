@@ -72,68 +72,10 @@ public class SandwichProdPanel extends JPanel
 			type += "айсберг, ";
 		if (olives.isSelected())
 			type += "маслини, ";
-		/*
-		else if (creamCheese.isSelected() && yellowCheese.isSelected())
-			type = "крема сирене и кашкавал";
-		else if (creamCheese.isSelected() && ham.isSelected())
-			type = "крема сирене и шунка";
-		else if (creamCheese.isSelected() && tomatoes.isSelected())
-			type = "крема сирене и домати";
-		else if (creamCheese.isSelected() && cucumbers.isSelected())
-			type = "крема сирене и краставици";
-		else if (creamCheese.isSelected() && iceberg.isSelected())
-			type = "крема сирене и айсберг";
-		else if (creamCheese.isSelected() && olives.isSelected())
-			type = "крема сирене и маслини";
-		
-		else if (yellowCheese.isSelected() && ham.isSelected())
-			type = "кашкавал и шунка";
-		else if (yellowCheese.isSelected() && tomatoes.isSelected())
-			type = "кашкавал и домати";
-		else if (yellowCheese.isSelected() && cucumbers.isSelected())
-			type = "кашкавал и краставици";
-		else if (yellowCheese.isSelected() && iceberg.isSelected())
-			type = "кашкавал и айсберг";
-		else if (yellowCheese.isSelected() && olives.isSelected())
-			type = "кашкавал и маслини";
-		
-		else if (ham.isSelected() && tomatoes.isSelected())
-			type = "шунка и домати";
-		else if (ham.isSelected() && cucumbers.isSelected())
-			type = "шунка и краставици";
-		else if (ham.isSelected() && iceberg.isSelected())
-			type = "шунка и айсберг";
-		else if (ham.isSelected() && olives.isSelected())
-			type = "шунка и маслини";
-		
-		else if (tomatoes.isSelected() && cucumbers.isSelected() )
-			type = "домати и краставици";
-		else if (tomatoes.isSelected() && iceberg.isSelected())
-			type = "домати и айсберг";
-		else if (tomatoes.isSelected() && olives.isSelected())
-			type = "домати и маслини";
-		
-		else if (cucumbers.isSelected() && iceberg.isSelected())
-			type = "краставици и айсберг";
-		else if (cucumbers.isSelected() && olives.isSelected())
-			type = "краставици и маслини";
-		
-		else if(olives.isSelected() && iceberg.isSelected())
-			type = "айсберг и маслини";
-		//
-		
-		else if (creamCheese.isSelected() && yellowCheese.isSelected() && ham.isSelected())
-			type = "крема сирене, кашкавал и шунка";
-		else if (creamCheese.isSelected() && yellowCheese.isSelected() && ham.isSelected())
-			type = "крема сирене, кашкавал и шунка";
-		else if (creamCheese.isSelected() && yellowCheese.isSelected() && ham.isSelected())
-			type = "крема сирене, кашкавал и шунка";
-		else if (creamCheese.isSelected() && yellowCheese.isSelected() && ham.isSelected())
-			type = "крема сирене, кашкавал и шунка";
-		else if (creamCheese.isSelected() && yellowCheese.isSelected() && ham.isSelected())
-			type = "крема сирене, кашкавал и шунка";
-		//
-		*/
+		if(type=="")
+		{
+			JOptionPane.showMessageDialog(null, "Не сте избрали добавки!");
+		}
 		int len=type.length();
 		if(type.charAt(len-2)==',')
 		{

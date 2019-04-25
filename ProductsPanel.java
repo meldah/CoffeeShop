@@ -1,12 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-
-/**
- * Main panel for selecting which product to add.
- * @author DrewOsborne
- *
- */
 public class ProductsPanel extends JPanel
 {
 	public static JRadioButton coffeeButton;

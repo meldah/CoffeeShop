@@ -56,7 +56,10 @@ public class TypeCappPanel extends JPanel
 			type = "безкофеиново";
 		else if (bioCoffee.isSelected())
 			type = "био";
-		
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Моля изберете тип на продукта!");
+		}
 		return type;	
 	}
 }

@@ -1,12 +1,6 @@
 import java.awt.*;
 
 import javax.swing.*;
-
-/**
- * Panel for bagel flavors.
- * @author DrewOsborne
- *
- */
 public class FlavorPanel extends JPanel
 {
 	private JRadioButton white;
@@ -72,7 +66,10 @@ public class FlavorPanel extends JPanel
 			type = "сусамена питка";
 		else if (popy.isSelected())
 			type = "черна питка";
-		
+		else
+		{
+			JOptionPane.showMessageDialog(null, "ћол€ изберете питка!");
+		}
 		return type;	
 	}
 	

@@ -2,8 +2,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 public class CappuccinoFlavor extends JPanel {
