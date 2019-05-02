@@ -54,7 +54,7 @@ public class SizePanel extends JPanel
 			size = "дълго";
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Моля изберете размер на продукта!");
+			size = "нормално";
 		}
 		return size;	
 	}
@@ -73,7 +73,10 @@ public class SizePanel extends JPanel
 			cost = mCost;
 		else if (large.isSelected())
 			cost = lCost;
-		
+		else
+		{
+			cost = mCost;
+		}
 		return cost;	
 	}
 }

@@ -68,7 +68,7 @@ public class FlavorPanel extends JPanel
 			type = "черна питка";
 		else
 		{
-			JOptionPane.showMessageDialog(null, "ћол€ изберете питка!");
+			type = "б€ла питка";
 		}
 		return type;	
 	}
@@ -92,7 +92,10 @@ public class FlavorPanel extends JPanel
 			cost = sesemeCost;
 		else if (popy.isSelected())
 			cost = popyCost;
-		
+		else
+		{
+			cost = whiteCost;
+		}
 		return cost;
 	}
 }

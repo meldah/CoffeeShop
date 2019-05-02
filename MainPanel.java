@@ -34,10 +34,7 @@ public class MainPanel extends JFrame
 	public MainPanel()
 	{
 		setResizable(true);
-		//Sets up the panel.
 		setTitle("Coffee Shop");
-		//getContentPane().setLayout(new BorderLayout());
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Creates all of the sub-panels.
 		greeting = new GreetingPanel();
@@ -263,6 +260,7 @@ public class MainPanel extends JFrame
 					list.repaint();
 					//
 					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
+					countOrd = 1;
 				}
 				else
 				{
@@ -288,6 +286,7 @@ public class MainPanel extends JFrame
 					list.repaint();
 					//
 					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
+					countOrd = 1;
 				}
 				else
 				{
@@ -315,6 +314,7 @@ public class MainPanel extends JFrame
 					list.repaint();
 					//
 					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
+					countOrd = 1;
 				}
 				else
 				{
@@ -342,6 +342,7 @@ public class MainPanel extends JFrame
 					list.repaint();
 					//
 					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
+					countOrd = 1;
 				}
 				else
 				{
@@ -426,17 +427,20 @@ public class MainPanel extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			
-			try {
-				NewReceipt();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
+			try 
+			{
+				String fileName = NewReceipt();
+				JOptionPane.showMessageDialog(null, "Касовата бележка е готова- " + fileName + "!");
+			} 
+			catch (IOException e1) 
+			{
 				e1.printStackTrace();
 			}
 			
 		}
 	}
 	
-	public void NewReceipt() throws IOException
+	public String NewReceipt() throws IOException
 	{
 		String pattern = "MM-dd-yyyy HH:mm:ss";
 		pattern = pattern.replaceAll("\\s","");
@@ -445,9 +449,9 @@ public class MainPanel extends JFrame
 		DateFormat df = new SimpleDateFormat(pattern);
 		Date today = Calendar.getInstance().getTime();        
 		String todayAsString = df.format(today);
-		String fileName = "fish"+ todayAsString + ".txt";
+		String fileName = "receipt"+ todayAsString + ".txt";
 		//make directory
-		String dir = System.getProperty("user.dir") + "\\Receips\\";
+		String dir = System.getProperty("user.dir") + "\\Receipts\\";
 		try 
 		{
 			new File(dir).mkdir();
@@ -483,7 +487,9 @@ public class MainPanel extends JFrame
 		if(printWriter != null) 
 		{
 			printWriter.close();
-		}		
+		}
+		
+		return fileName;
 	}
 	private class ClearItem implements ActionListener
 	{
@@ -501,7 +507,7 @@ public class MainPanel extends JFrame
 			String costStr = line.substring(first+1, last);
 			double result = Double.parseDouble(costStr.replaceAll(",", "."));
 			totalPrice -= result;
-			//
+			//remove deleted item from the list
 			list.listInfo.remove(clrInd);
 			list.orders.setListData(list.listInfo);
 			//

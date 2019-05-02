@@ -58,7 +58,7 @@ public class TypeCappPanel extends JPanel
 			type = "био";
 		else
 		{
-			JOptionPane.showMessageDialog(null, "ћол€ изберете тип на продукта!");
+			type = "лаваца";
 		}
 		return type;	
 	}

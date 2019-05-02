@@ -47,14 +47,14 @@ public class SizePanelCapp extends JPanel
 		String size = "";
 		
 		if (small.isSelected())
-			size = "късо";
+			size = "малко";
 		else if (medium.isSelected())
-			size = "нормално";
+			size = "средно";
 		else if (large.isSelected())
-			size = "дълго";
+			size = "голямо";
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Моля изберете размер на продукта!");
+			size = "средно";
 		}
 		return size;	
 	}
@@ -73,7 +73,10 @@ public class SizePanelCapp extends JPanel
 			cost = mCost;
 		else if (large.isSelected())
 			cost = lCost;
-		
+		else
+		{
+			cost = mCost;
+		}
 		return cost;	
 	}
 }
