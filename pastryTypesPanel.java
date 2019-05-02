@@ -26,6 +26,11 @@ public class pastryTypesPanel extends JPanel
 	 */
 	public String getPastryType()
 	{
+		if(pastryList.getSelectedIndex() < 0)
+		{
+			String result = "";
+			return result;
+		}
 		return (String) pastryList.getSelectedValue();
 	}
 	
@@ -35,6 +40,10 @@ public class pastryTypesPanel extends JPanel
 	 */
 	public double getPastryCost()
 	{
+		if(pastryList.getSelectedIndex() < 0)
+		{
+			return 0.0;
+		}
 		int i = pastryList.getSelectedIndex();
 		return pastriesCost[i];
 	}

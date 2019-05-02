@@ -238,7 +238,7 @@ public class MainPanel extends JFrame
 			NumberFormat formatter = new DecimalFormat("#0.00");
 			if(!(ProductsPanel.coffeeButton.isSelected()) && !(ProductsPanel.cappuccinoButton.isSelected()) && !(ProductsPanel.sandwichesButton.isSelected()) && !(ProductsPanel.pastryButton.isSelected()))
 			{
-				JOptionPane.showMessageDialog(null, "Моля изберете продукт!");
+				JOptionPane.showMessageDialog(null, "Моля изберете продукт!", "Грешка", JOptionPane.ERROR_MESSAGE);
 			}
 			//Checks which button is selected.
 			if (ProductsPanel.coffeeButton.isSelected())
@@ -261,10 +261,14 @@ public class MainPanel extends JFrame
 					//
 					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
 					countOrd = 1;
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Моля изберете вид кафе!");
+					//reset to false check boxes and radio buttons
+					coffeePanel.size.sizeGroup.clearSelection();
+					coffeePanel.type.typeGroup.clearSelection();
+					coffeePanel.extras.cream.setSelected(false);
+					coffeePanel.extras.milk.setSelected(false);
+					coffeePanel.extras.sugar.setSelected(false);
+					//
+					products.bg.clearSelection();
 				}
 
 			}
@@ -287,10 +291,12 @@ public class MainPanel extends JFrame
 					//
 					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
 					countOrd = 1;
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Моля изберете вид капучино!");
+					//reset to false check boxes and radio buttons
+					cappuccinoPanel.type.typeGroup.clearSelection();
+					cappuccinoPanel.flavor.bg.clearSelection();
+					cappuccinoPanel.size.sizeGroup.clearSelection();
+					//
+					products.bg.clearSelection();
 				}
 			}
 			else if (ProductsPanel.sandwichesButton.isSelected())
@@ -301,12 +307,10 @@ public class MainPanel extends JFrame
 				{
 					cost = countOrd * cost;
 				}
-				
 				//Makes the final string to output.
 				String totalOrder =countOrd + "X" + order + " :" + (formatter.format(cost)).toString() + " лв.";
-				
 				totalPrice += cost;
-				if(cost!=0 && order!="")
+				if(order!="" && cost !=0.0)
 				{
 					list.addToList(totalOrder);
 					//
@@ -315,24 +319,34 @@ public class MainPanel extends JFrame
 					//
 					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
 					countOrd = 1;
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Моля изберете вид сандвич!");
+					//reset to false check boxes and radio buttons
+					sandwichesPanel.flavor.bg.clearSelection();
+					sandwichesPanel.salads.russianSalad.setSelected(false);
+					sandwichesPanel.salads.snezhankaSalad.setSelected(false);
+					
+					sandwichesPanel.products.creamCheese.setSelected(false);
+					sandwichesPanel.products.ham.setSelected(false);
+					sandwichesPanel.products.cucumbers.setSelected(false);
+					sandwichesPanel.products.tomatoes.setSelected(false);
+					sandwichesPanel.products.yellowCheese.setSelected(false);
+					sandwichesPanel.products.olives.setSelected(false);
+					sandwichesPanel.products.iceberg.setSelected(false);
+					//
+					products.bg.clearSelection();
 				}
 
 			}
 			else if (ProductsPanel.pastryButton.isSelected())
 			{
+				
 				String order = pastryPanel.getPastryType();
 				Double cost = pastryPanel.getPastryCost();
 				if(countOrd > 1)
 				{
-					cost = countOrd * cost;
+							cost = countOrd * cost;
 				}		
 				//Makes the final string to output.
 				String totalOrder =countOrd + "X" + order + " :" + (formatter.format(cost)).toString() + " лв.";
-
 				totalPrice += cost;
 				if(cost!=0.00 && order!="")
 				{
@@ -346,10 +360,10 @@ public class MainPanel extends JFrame
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "Моля изберете вид сладкиш!");
+					JOptionPane.showMessageDialog(null, "Моля изберете сладкиш!", "Грешка", JOptionPane.ERROR_MESSAGE);
 				}
-
 			}
+			
 		}
 	}
 	
@@ -391,9 +405,12 @@ public class MainPanel extends JFrame
 		//Updates the panel.
 		list.scrollPanel.validate();
 		list.scrollPanel.repaint();
-		
+		/*
 		coffeePanel.size.sizeGroup.clearSelection();
 		coffeePanel.type.typeGroup.clearSelection();
+		coffeePanel.extras.cream.setSelected(false);
+		coffeePanel.extras.milk.setSelected(false);
+		coffeePanel.extras.sugar.setSelected(false);
 		
 		cappuccinoPanel.type.typeGroup.clearSelection();
 		cappuccinoPanel.flavor.bg.clearSelection();
@@ -402,10 +419,7 @@ public class MainPanel extends JFrame
 		sandwichesPanel.flavor.bg.clearSelection();
 		
 		products.bg.clearSelection();
-		
-		coffeePanel.extras.cream.setSelected(false);
-		coffeePanel.extras.milk.setSelected(false);
-		coffeePanel.extras.sugar.setSelected(false);
+	
 		
 		sandwichesPanel.salads.russianSalad.setSelected(false);
 		sandwichesPanel.salads.snezhankaSalad.setSelected(false);
@@ -417,7 +431,7 @@ public class MainPanel extends JFrame
 		sandwichesPanel.products.yellowCheese.setSelected(false);
 		sandwichesPanel.products.olives.setSelected(false);
 		sandwichesPanel.products.iceberg.setSelected(false);
-		
+		*/
 		totalPrice=0.0;
 		countOrd=1;
 	}
@@ -483,7 +497,7 @@ public class MainPanel extends JFrame
 			String line = list.listInfo.get(i);
 			printWriter.println (line);				
 		}
-		printWriter.println("Обща сума: " + totalPrice.toString());
+		printWriter.println("Обща сума: " + String.format("%.2f", totalPrice));
 		if(printWriter != null) 
 		{
 			printWriter.close();

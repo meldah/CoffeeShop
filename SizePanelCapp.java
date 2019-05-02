@@ -24,7 +24,7 @@ public class SizePanelCapp extends JPanel
 		setLayout(new GridLayout(3, 1));
 		
 		small = new JRadioButton("Малко");
-		medium = new JRadioButton("Средно");
+		medium = new JRadioButton("Средно (по подразбиране)");
 		large = new JRadioButton("Голямо");
 		sizeGroup = new ButtonGroup();
 		sizeGroup.add(small);

@@ -4,17 +4,17 @@ import javax.swing.*;
 public class FlavorPanel extends JPanel
 {
 	private JRadioButton white;
-	private JRadioButton wheat;
-	private JRadioButton salt;
 	private JRadioButton seseme;
+	private JRadioButton whiteW;
+	private JRadioButton cherna;
 	private JRadioButton popy;
 	public ButtonGroup bg;
 	
 	//Final costs of each type of bagel.
 	private final Double whiteCost = 0.75;
-	private final Double wheatCost = 0.85;
+	private final Double sesemeCost = 0.85;
 	private final Double saltCost = 0.75;
-	private final Double sesemeCost = 0.90;
+	private final Double chernaCost = 0.90;
 	private final Double popyCost = 0.90;
 	
 	/**
@@ -22,28 +22,28 @@ public class FlavorPanel extends JPanel
 	 */
 	public FlavorPanel()
 	{
-		white = new JRadioButton("Бяла");
-		wheat = new JRadioButton("Черна");
-		salt = new JRadioButton("Бяла пълнозърнеста");
-		seseme = new JRadioButton("Черна пълнозърнеста");
+		white = new JRadioButton("Бяла (по подразбиране)");
+		seseme = new JRadioButton("Бяла със сусам");
+		whiteW = new JRadioButton("Бяла пълнозърнеста");
+		cherna = new JRadioButton("Черна пълнозърнеста");
 		popy = new JRadioButton("С лимец");
 		
 		
 		bg = new ButtonGroup();
 		
 		bg.add(white);
-		bg.add(wheat);
-		bg.add(salt);
 		bg.add(seseme);
+		bg.add(whiteW);
+		bg.add(cherna);
 		bg.add(popy);
 		
 		setBorder(BorderFactory.createTitledBorder("Питка"));
 		setLayout(new GridLayout(5, 1));
 		
 		add(white);
-		add(wheat);
-		add(salt);
 		add(seseme);
+		add(whiteW);
+		add(cherna);
 		add(popy);
 	}
 	
@@ -58,14 +58,14 @@ public class FlavorPanel extends JPanel
 		//Determines which bagel is selected.
 		if (white.isSelected())
 			type = "бяла питка";
-		else if (wheat.isSelected())
-			type = "пшеничена питка";
-		else if (salt.isSelected())
-			type = "солена питка";
 		else if (seseme.isSelected())
-			type = "сусамена питка";
+			type = "бяла питка със сусам";
+		else if (whiteW.isSelected())
+			type = "бяла пълнозърнеста питка";
+		else if (cherna.isSelected())
+			type = "черна пълнозърнеста питка";
 		else if (popy.isSelected())
-			type = "черна питка";
+			type = "питка с лимец";
 		else
 		{
 			type = "бяла питка";
@@ -84,12 +84,12 @@ public class FlavorPanel extends JPanel
 		//Determines which bagel is selected.
 		if (white.isSelected())
 			cost = whiteCost;
-		else if (wheat.isSelected())
-			cost = wheatCost;
-		else if (salt.isSelected())
-			cost = saltCost;
 		else if (seseme.isSelected())
 			cost = sesemeCost;
+		else if (whiteW.isSelected())
+			cost = saltCost;
+		else if (cherna.isSelected())
+			cost = chernaCost;
 		else if (popy.isSelected())
 			cost = popyCost;
 		else

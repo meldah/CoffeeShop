@@ -20,7 +20,7 @@ public class TypeCappPanel extends JPanel
 	{
 		setLayout(new GridLayout(3, 1));
 		
-		lCoffee = new JRadioButton("Lavazza");
+		lCoffee = new JRadioButton("Lavazza (по подразбиране)");
 		bCoffee = new JRadioButton("Bianchi");
 		cCoffee = new JRadioButton("Безкофеиново");
 		bioCoffee = new JRadioButton("Био");

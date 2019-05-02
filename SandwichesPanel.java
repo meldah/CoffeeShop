@@ -34,7 +34,11 @@ public class SandwichesPanel extends JPanel
 	{
 		//Adds up the totals of each sub-panel.
 		double flavorCost = flavor.getBagelCost();
-		double spreadsCost = products.getSpreadCost();
+		double spreadsCost = products.getProdCost();
+		if(spreadsCost==0)
+		{
+			return 0.0;
+		}
 		double saladsCost = salads.getsCost();
 		double sandwichCost = flavorCost + spreadsCost + saladsCost;
 		
@@ -49,7 +53,12 @@ public class SandwichesPanel extends JPanel
 	{
 		//Adds the descriptions of each sub-panel.
 		String flavorString = flavor.getBagelType();
-		String productsString = products.getSpreadType();
+		String productsString = products.getProdType();
+		if(productsString=="")
+		{
+			String result = "";
+			return result;
+		}
 		String saladsString = salads.getSalads();
 		
 		return "Сандвич: " + flavorString + " , с " + productsString + " / " + saladsString;

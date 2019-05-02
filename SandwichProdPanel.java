@@ -54,7 +54,7 @@ public class SandwichProdPanel extends JPanel
 	 * Allows access to which type of spread is selected.
 	 * @return Type
 	 */
-	public String getSpreadType()
+	public String getProdType()
 	{
 		String type = "";
 		
@@ -75,11 +75,15 @@ public class SandwichProdPanel extends JPanel
 		if(type=="")
 		{
 			JOptionPane.showMessageDialog(null, "Не сте избрали добавки!");
+			type="";
 		}
-		int len=type.length();
-		if(type.charAt(len-2)==',')
+		if(type!="")
 		{
-			type = type.substring(0, len-2);
+			int len=type.length();
+			if(type.charAt(len-2)==',')
+			{
+				type = type.substring(0, len-2);
+			}
 		}
 		return type;
 	}
@@ -88,7 +92,7 @@ public class SandwichProdPanel extends JPanel
 	 * Allows access to the cost of the spread selected.
 	 * @return Cost
 	 */
-	public Double getSpreadCost()
+	public Double getProdCost()
 	{
 		Double cost = 0.0;
 		
@@ -106,7 +110,7 @@ public class SandwichProdPanel extends JPanel
 			cost += icebergCost;
 		if (olives.isSelected())
 			cost += olivesCost;
-		
+			
 		return cost;
 	}
 }

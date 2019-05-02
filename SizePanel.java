@@ -24,7 +24,7 @@ public class SizePanel extends JPanel
 		setLayout(new GridLayout(3, 1));
 		
 		small = new JRadioButton("Късо");
-		medium = new JRadioButton("Нормално");
+		medium = new JRadioButton("Нормално (по подразбиране)");
 		large = new JRadioButton("Дълго");
 		sizeGroup = new ButtonGroup();
 		sizeGroup.add(small);
