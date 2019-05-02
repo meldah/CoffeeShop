@@ -6,7 +6,7 @@ import java.awt.*;
  */
 public class PastryPanel extends JPanel
 {
-	private pastryTypesPanel pastries;
+	public pastryTypesPanel pastries;
 	
 	/**
 	 * Constructor

@@ -357,6 +357,8 @@ public class MainPanel extends JFrame
 					//
 					CountPanel.count.setModel(new SpinnerNumberModel(1, 0, 10, 1));
 					countOrd = 1;
+					//
+					pastryPanel.pastries.pastryList.getSelectionModel().clearSelection();
 				}
 				else
 				{
@@ -389,10 +391,8 @@ public class MainPanel extends JFrame
 	private class NewOrderButtonListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
-		{
-			
-			NewOrder();
-			
+		{		
+			NewOrder();		
 		}
 	}
 	
@@ -405,33 +405,7 @@ public class MainPanel extends JFrame
 		//Updates the panel.
 		list.scrollPanel.validate();
 		list.scrollPanel.repaint();
-		/*
-		coffeePanel.size.sizeGroup.clearSelection();
-		coffeePanel.type.typeGroup.clearSelection();
-		coffeePanel.extras.cream.setSelected(false);
-		coffeePanel.extras.milk.setSelected(false);
-		coffeePanel.extras.sugar.setSelected(false);
-		
-		cappuccinoPanel.type.typeGroup.clearSelection();
-		cappuccinoPanel.flavor.bg.clearSelection();
-		cappuccinoPanel.size.sizeGroup.clearSelection();
-		
-		sandwichesPanel.flavor.bg.clearSelection();
-		
-		products.bg.clearSelection();
-	
-		
-		sandwichesPanel.salads.russianSalad.setSelected(false);
-		sandwichesPanel.salads.snezhankaSalad.setSelected(false);
-		
-		sandwichesPanel.products.creamCheese.setSelected(false);
-		sandwichesPanel.products.ham.setSelected(false);
-		sandwichesPanel.products.cucumbers.setSelected(false);
-		sandwichesPanel.products.tomatoes.setSelected(false);
-		sandwichesPanel.products.yellowCheese.setSelected(false);
-		sandwichesPanel.products.olives.setSelected(false);
-		sandwichesPanel.products.iceberg.setSelected(false);
-		*/
+		//
 		totalPrice=0.0;
 		countOrd=1;
 	}

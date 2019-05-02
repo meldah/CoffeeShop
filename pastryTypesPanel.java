@@ -1,7 +1,7 @@
 import javax.swing.*;
 public class pastryTypesPanel extends JPanel
 {
-	private JList pastryList;
+	public JList pastryList;
 	private String[] pastries = {"Мъфин", "Поничка",
 											"Кроасан", "Щрудел", "Кекс"};
 	
